@@ -5,9 +5,9 @@ class content{
 	private $currentPath;
 
 
-	function __construct($getArr)
+	function __construct()
 	{
-		$this->getArr = $getArr;
+		$this->getArr = $_GET;
 	}
 	function getLink()
 	{

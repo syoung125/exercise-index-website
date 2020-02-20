@@ -9,7 +9,10 @@ class NavigationBar{
 		$this->path = $path;
 		$this->link = "";
 	}
-	
+	/**
+	* Return the css code of NavigationBar
+	* dropdown: https://www.w3schools.com/css/css_dropdowns.asp
+	*/
 	function getStyle()
 	{
 		$content = '';
@@ -67,30 +70,11 @@ class NavigationBar{
 
 		return $content;
 	}
-
-	function getNav()
-	{
-		$contents = '';
-		$contents .= $this->outputHTML();
-		$contents .= '<ul id = "ulNav">';
-		$files = array_diff(scandir($this->path), array('.', '..'));
-		foreach($files as $fdname){
-		  $contents .= '<li class = "dropdown">'
-		        ."<a href=\"?unit=$fdname\" class=\"dropbtn\">Unit $fdname</a>";
-		  $folderPath2 = $this->path."/".$fdname;
-		  $files2 = array_diff(scandir($folderPath2), array('.', '..'));
-		    $contents .= '<div class="dropdown-content">';
-		    foreach ($files2 as $filename) {
-		      $contents .= "<a href=\"?unit=$fdname&exercise=$filename\">".$filename."</a>";
-		    }
-		    $contents .= '</div>';
-		    $contents .= '</li>';
-		}
-		$contents .= '</ul>';
-	  return $contents;
-	}
-
-	function outputHTML()
+	/**
+	* Return the html code of NavigationBar header part
+	* (Unit : 1 -- Exercise : 1 -- Filename :)
+	*/
+	function getHeader()
 	{
 		$getArr = $_GET;
 		$contents = "";
@@ -109,5 +93,31 @@ class NavigationBar{
 		$contents .= "</h3><br>";
 		return $contents;
 	}
+	/**
+	* Return the html code of NavigationBar
+	*/
+	function getNav()
+	{
+		$contents = '';
+		$contents .= $this->getHeader();
+		$contents .= '<ul id = "ulNav">';
+		$files = array_diff(scandir($this->path), array('.', '..'));	// exclude . and ..
+		foreach($files as $fdname){
+		  $contents .= '<li class = "dropdown">'
+		        ."<a href=\"?unit=$fdname\" class=\"dropbtn\">Unit $fdname</a>";
+		  $fdPath2 = $this->path."/".$fdname;
+		  $files2 = array_diff(scandir($fdPath2), array('.', '..'));
+		    $contents .= '<div class="dropdown-content">';
+		    foreach ($files2 as $filename) {
+		      $contents .= "<a href=\"?unit=$fdname&exercise=$filename\">".$filename.'</a>';
+		    }
+		    $contents .= '</div>';
+		    $contents .= '</li>';
+		}
+		$contents .= '</ul>';
+		return $contents;
+	}
+
+	
 }
 ?>
