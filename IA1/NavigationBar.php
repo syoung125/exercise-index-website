@@ -17,7 +17,11 @@ class NavigationBar{
 	{
 		$content = '';
 		$content .= '
+		#hNav {
+		  height: 70%;
+		}
 		#ulNav {
+		  height: 30%;
 		  list-style-type: none;
 		  margin: 0;
 		  padding: 0;
@@ -99,7 +103,7 @@ class NavigationBar{
 	function getNav()
 	{
 		$contents = '';
-		$contents .= $this->getHeader();
+		$contents .= '<div id = "hNav">'.$this->getHeader().'</div>';
 		$contents .= '<ul id = "ulNav">';
 		$files = array_diff(scandir($this->path), array('.', '..'));	// exclude . and ..
 		foreach($files as $fdname){

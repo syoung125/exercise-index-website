@@ -2,29 +2,36 @@
 
 class content{
 	private $getArr;
-	private $currentPath;
-
 
 	function __construct()
 	{
 		$this->getArr = $_GET;
 	}
+	/**
+	* return link tag
+	*/
 	function getLink()
 	{
 		return "<link rel=\"stylesheet\" type=\"text/css\" href=\"./styles/atom-one-dark.css\">";
 	}
+	/**
+	* return the css code of content
+	*/
 	function getStyle()
 	{
 		$content = "";
 		$content .= "
  			#content_header{
               margin: 0px;
-              padding: 10px;
+              height: 5.5%;
+              padding-top: 1.5%;
               text-align: center;
               background: #000000;
             }
             #content_body{
-              height: 100%;
+              margin: 0px;
+              height: 93%;
+              overflow: auto;
             } 
             table {
                 border-collapse: collapse;
@@ -63,6 +70,27 @@ class content{
             ";
         return $content;
 	}
+	/**
+	* return link from current _GET info
+	*/
+	function makeMenuLink()
+	{
+		$linkstr = "?";
+		if(isset($this->getArr["unit"])){
+			$linkstr .= "unit=".$this->getArr["unit"];
+		}
+		if(isset($this->getArr["exercise"])){
+			$linkstr .= "&exercise=".$this->getArr["exercise"];
+		}
+		if(isset($this->getArr["unit"]) || isset($this->getArr["exercise"])){
+			$linkstr .= "&";	
+		}
+		$linkstr .= "file=".$this->getArr["file"];
+		return $linkstr;
+	}
+	/**
+	* add content header (1. show source  2. show output  3. download  4. download all)
+	*/
 	function addMenu()
 	{
 		$content = "";
@@ -80,21 +108,9 @@ class content{
 	    </div>';
 		return $content;
 	}
-	function makeMenuLink()
-	{
-		$linkstr = "?";
-		if(isset($this->getArr["unit"])){
-			$linkstr .= "unit=".$this->getArr["unit"];
-		}
-		if(isset($this->getArr["exercise"])){
-			$linkstr .= "&exercise=".$this->getArr["exercise"];
-		}
-		if(isset($this->getArr["unit"]) || isset($this->getArr["exercise"])){
-			$linkstr .= "&";	
-		}
-		$linkstr .= "file=".$this->getArr["file"];
-		return $linkstr;
-	}
+	/**
+	* [MENU 1] SHOW SOURCE
+	*/
 	function showSource()
 	{
         $source_str = "";
@@ -122,6 +138,9 @@ class content{
 
         return $source_str;
 	}
+	/**
+	* [MENU 2] SHOW OUTPUT
+	*/
 	function showOutput(string $file){
 		//return file_get_contents($file);
 
@@ -132,7 +151,9 @@ class content{
 		}
 		return $content;
 	}
-
+	/**
+	* Return the html code of Content area
+	*/
 	function getContent()
 	{
 		$content = "";
@@ -163,7 +184,7 @@ class content{
 				$zipFileName .= '.zip';
 				$downloadOj->downloadAll($filePath, $zipFileName);
 			}
-		}else{
+		}else{	//default
 			$content .= $this->showSource();
 		}
 

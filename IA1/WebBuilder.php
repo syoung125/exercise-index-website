@@ -84,14 +84,16 @@ class WebBuilder
 			margin: 0px;
 		}
 		#top{
+			height: 17%;
 			text-align: center;
 			color: #ffffff;
 			background-color:#000000;
 		}
 		#middle{
-
+			height: 80%;
 		}
 		#bottom{
+			height: 3%;
 			text-align: center;
 			color: #ffffff;
 			background-color:#000000;
@@ -105,12 +107,15 @@ class WebBuilder
 			display:inline-block;
 			float:left;
 			width:20%;
+			height: 100%;
 			background-color:#F7F9F9;
 		}
 		#center{
 			display:inline-block;
 			float:left;
 			width:80%;
+			height: 100%;
+			overflow: hidden;
 			background-color:#ffffff;
 		}' 
 		.$this->navigationBar->getStyle()
@@ -124,7 +129,6 @@ class WebBuilder
 		$this->addNavBar();
 		$this->addTree();
 		$this->addContent();
-
 
 		$content = "";
 		$content .= '<!DOCTYPE html><html><head>'
