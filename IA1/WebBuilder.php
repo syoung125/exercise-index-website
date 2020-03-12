@@ -19,11 +19,10 @@ class WebBuilder
 	{
 		$this->title = $title;
 		$this->folderPath = $folderPath;
-
-		$this->navigationBar = new navigationBar($folderPath);
-		$this->tree = new Tree($folderPath);
+		// Create NavigationBar, Tree, Content
+		$this->navigationBar = new navigationBar($this->folderPath);
+		$this->tree = new Tree($this->folderPath);
 		$this->content = new Content();
-
 		// initializing content(html code) 
 		$this->styleContent = $this->navContent = $this->treeContent = $this->contentContent = $this->footerContent = "";
 
@@ -76,27 +75,38 @@ class WebBuilder
 	{
 		$this->styleContent = '';
 		$this->styleContent .= '
+		* {
+			box-sizing: border-box;
+			margin: 0px;
+		}
 		html, body{
 			height: 100%;
-			margin: 0px;
+		}
+		body {
+			display: flex;
+			flex-direction: column;
 		}
 		p {
 			margin: 0px;
 		}
 		#top{
-			height: 17%;
+			flex: 3;
+		    display: flex;
+   			flex-direction: column;
 			text-align: center;
-			color: #ffffff;
-			background-color:#000000;
 		}
 		#middle{
-			height: 80%;
+			flex: 14;
 		}
 		#bottom{
-			height: 3%;
-			text-align: center;
-			color: #ffffff;
+			flex: 1;
+			display: flex;
+			align-items: center;
+	      	justify-content: center;
+		}
+		#top, #bottom {
 			background-color:#000000;
+			color: #ffffff;
 		}
 		#middle:after {
 			content: "";

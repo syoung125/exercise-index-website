@@ -1,21 +1,10 @@
 <?php
 require_once "config.php";
 
-$getArr = $_GET;
-
+$title = "My portfolio";
 $folderPath = "./files";
 
-$openedFilePath = "";
-
-if(!empty($getArr)){
-
-	if(isset($getArr["file"])){
-		$openedFilePath = $getArr["file"];
-	}
-}
-
-
-$webBuilder = new webBuilder("My index", $folderPath);
+$webBuilder = new webBuilder($title, $folderPath);
 
 echo $webBuilder->printWebpage();
 

@@ -1,9 +1,12 @@
 <?php
 
+/**
+* tree link: https://www.abeautifulsite.net/php-file-tree
+*/
+
 class Tree{
 
 	private $path;
-	private $return_link;
 
 	function __construct($path)
 	{
@@ -63,9 +66,21 @@ class Tree{
 			$str .= "file=[link]";
 		}
 		if($str != ""){
-    		$contents = php_file_tree("$this->path/", $str);
+			if(!$this->isEmptyDir($this->path)){
+	    		$contents = php_file_tree("$this->path/", $str);
+			}
 		}
     	return $contents;
+	}
+	/**
+	* check whether it's empty directory or not 
+	* return ture if it's empty
+	*/
+	function isEmptyDir($path){
+		$files = array_diff(scandir($this->path), array('.', '..'));
+		if(empty($files)){
+			return true;
+		}else return false;
 	}
 }
 ?>

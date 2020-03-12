@@ -2,12 +2,10 @@
 class NavigationBar{
 
 	private $path;
-	private $link;
 
 	function __construct($path)
 	{
 		$this->path = $path;
-		$this->link = "";
 	}
 	/**
 	* Return the css code of NavigationBar
@@ -18,19 +16,22 @@ class NavigationBar{
 		$content = '';
 		$content .= '
 		#hNav {
-		  height: 70%;
+		  flex: 2;
+		  display: flex;
+	      align-items: center;
+	      justify-content: center;
 		}
 		#ulNav {
-		  height: 30%;
+		  flex: 1;
+		  display: flex;
+		  align-items: center;
 		  list-style-type: none;
-		  margin: 0;
-		  padding: 0;
-		  overflow: hidden;
 		  background-color: #333;
 		}
 
 		.dropdown {
 		  float: left;
+		  display: inline-block;
 		}
 
 		.dropdown a, .dropbtn {
@@ -43,10 +44,6 @@ class NavigationBar{
 
 		.dropdown a:hover, .dropdown:hover .dropbtn {
 		  background-color: red;
-		}
-
-		.dropdown {
-		  display: inline-block;
 		}
 
 		.dropdown-content {
@@ -80,21 +77,24 @@ class NavigationBar{
 	*/
 	function getHeader()
 	{
-		$getArr = $_GET;
 		$contents = "";
-		$contents .= "<br><h3> Unit : ";
-		if(isset($getArr["unit"])){
-			$contents .= $getArr["unit"];
+		$fpath = array();
+		$contents .= "<h3> Unit : ";
+		if(isset($_GET["unit"])){
+			$contents .= $_GET["unit"];
 		}
 		$contents .= " -- Exercise : ";
-		if(isset($getArr["exercise"])){
-			$contents .= $getArr["exercise"];
+		if(isset($_GET["file"])){
+			$fpath = explode("/", $_GET["file"]);	// file value : ex) ./files/1/1/circle.php
+			$contents .= $fpath[3];
+		} else if(isset($_GET["exercise"])){
+			$contents .= $_GET["exercise"];
 		}
 		$contents .= " -- Filename : ";
-		if(isset($getArr["file"])){
-			$contents .= $getArr["file"];
+		if(isset($_GET["file"])){
+			$contents .= $fpath[count($fpath)-1];
 		}
-		$contents .= "</h3><br>";
+		$contents .= "</h3>";
 		return $contents;
 	}
 	/**
@@ -105,7 +105,8 @@ class NavigationBar{
 		$contents = '';
 		$contents .= '<div id = "hNav">'.$this->getHeader().'</div>';
 		$contents .= '<ul id = "ulNav">';
-		$files = array_diff(scandir($this->path), array('.', '..'));	// exclude . and ..
+		// exclude . and ..
+		$files = array_diff(scandir($this->path), array('.', '..'));	
 		foreach($files as $fdname){
 		  $contents .= '<li class = "dropdown">'
 		        ."<a href=\"?unit=$fdname\" class=\"dropbtn\">Unit $fdname</a>";
@@ -113,7 +114,7 @@ class NavigationBar{
 		  $files2 = array_diff(scandir($fdPath2), array('.', '..'));
 		    $contents .= '<div class="dropdown-content">';
 		    foreach ($files2 as $filename) {
-		      $contents .= "<a href=\"?unit=$fdname&exercise=$filename\">".$filename.'</a>';
+		    	$contents .= "<a href=\"?unit=$fdname&exercise=$filename\">".$filename.'</a>';
 		    }
 		    $contents .= '</div>';
 		    $contents .= '</li>';

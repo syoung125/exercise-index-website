@@ -21,7 +21,7 @@ function php_file_tree($directory, $return_link, $extensions = array()) {
 	// Generates a valid XHTML list of all directories, sub-directories, and files in $directory
 	// Remove trailing slash
 	if( substr($directory, -1) == "/" ) $directory = substr($directory, 0, strlen($directory) - 1);
-	$code .= php_file_tree_dir($directory, $return_link, $extensions);
+	$code = php_file_tree_dir($directory, $return_link, $extensions);
 	return $code;
 }
 
