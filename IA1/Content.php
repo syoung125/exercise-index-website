@@ -22,16 +22,14 @@ class content{
 		$content = "";
 		$content .= "
  			#content_header{
-              margin: 0px;
-              height: 5.5%;
-              padding-top: 1.5%;
-              text-align: center;
-              background: #000000;
+              	background: #000000;
+             	position: sticky;
+              	top: 0;
+				padding: 10px 0;
+    			text-align: center;
             }
             #content_body{
-              margin: 0px;
-              height: 93%;
-              overflow: auto;
+
             } 
             table {
                 border-collapse: collapse;

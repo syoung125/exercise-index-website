@@ -97,6 +97,8 @@ class WebBuilder
 		}
 		#middle{
 			flex: 14;
+			display: flex;
+			overflow: hidden;
 		}
 		#bottom{
 			flex: 1;
@@ -114,18 +116,15 @@ class WebBuilder
 			clear: both;
 		}
 		#left{
-			display:inline-block;
-			float:left;
-			width:20%;
-			height: 100%;
+			flex: 2;
+			padding-top: 20px;
 			background-color:#F7F9F9;
 		}
 		#center{
-			display:inline-block;
-			float:left;
-			width:80%;
-			height: 100%;
-			overflow: hidden;
+			flex: 8;
+			display: flex;
+			overflow: auto;
+			flex-direction: column;
 			background-color:#ffffff;
 		}' 
 		.$this->navigationBar->getStyle()
