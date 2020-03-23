@@ -8,5 +8,11 @@
 3. download<br/>
 4. download all<br/>
 
-로컬에서는 돌아가는데 서버로 올리면 이상해짐..
--> 원래 깃허브에서는 php 퍼블리싱 못함
+## what I want to add next?
+1. upload a file
+2. upload bunch of files
+
+(로컬에서는 돌아가는데 서버로 올리면 이상해짐..
+-> 원래 깃허브에서는 php 퍼블리싱 못함)
+
+
